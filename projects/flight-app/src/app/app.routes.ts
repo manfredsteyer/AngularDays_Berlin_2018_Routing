@@ -13,6 +13,11 @@ export const APP_ROUTES: Routes = [
     component: HomeComponent
   },
   {
+    path: 'basket',
+    component: BasketComponent,
+    outlet: 'aux'
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }

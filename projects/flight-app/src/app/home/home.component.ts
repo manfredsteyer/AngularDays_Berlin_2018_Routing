@@ -1,15 +1,19 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { AuthService } from '../shared/auth/auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute) {
   }
 
   needsLogin: boolean;
@@ -20,15 +24,15 @@ export class HomeComponent implements OnInit {
   }
 
   get userName(): string {
-    return this._userName;
+    return this.authService.userName;
   }
 
   login(): void {
-    this._userName = 'Login will be implemented in another exercise!'
+    this.authService.login();
   }
 
   logout(): void {
-    this._userName = '';
+    this.authService.logout();
   }
 
 
