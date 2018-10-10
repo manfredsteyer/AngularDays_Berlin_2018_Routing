@@ -2,6 +2,7 @@ import { Observable, Observer } from 'rxjs';
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import { ExitComponent } from '../../shared/exit/exit.guard';
+import { Flight } from '@flight-workspace/flight-api';
 
 @Component({
   selector: 'app-flight-edit',
@@ -13,6 +14,7 @@ export class FlightEditComponent implements OnInit, ExitComponent {
   showDetails: string;
   showWarning = false;
   sender: Observer<boolean>;
+  flight: Flight;
 
   constructor(private route: ActivatedRoute) {
   }
@@ -31,6 +33,13 @@ export class FlightEditComponent implements OnInit, ExitComponent {
   }
 
   ngOnInit() {
+
+    this.route.data.subscribe(data => {
+      const flight: Flight = data['flight'];
+      this.flight = flight;
+      console.debug('flight', flight);
+    });
+
     this.route.params.subscribe(p => {
       this.id = p['id'];
       this.showDetails = p['showDetails'];
